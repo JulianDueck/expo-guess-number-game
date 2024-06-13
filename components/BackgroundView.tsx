@@ -1,11 +1,11 @@
-import { ImageBackground } from "react-native";
+import { ImageBackground, StyleSheet, ViewProps } from "react-native";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { LinearGradient } from "expo-linear-gradient";
 import { Colors } from "@/constants/Colors";
 
-export function BackgroundView({ style, children, ...otherProps }: any) {
+export function BackgroundView({ children }: ViewProps) {
   return (
     <LinearGradient
       colors={[Colors.primary700, Colors.accent500]}

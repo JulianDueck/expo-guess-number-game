@@ -1,9 +1,12 @@
 import { BackgroundView } from "@/components/BackgroundView";
+import Card from "@/components/Card";
+import InstructionText from "@/components/InstructionText";
 import PrimaryButton from "@/components/PrimaryButton";
+import Title from "@/components/Title";
 import { Colors } from "@/constants/Colors";
 import { router } from "expo-router";
 import { useState } from "react";
-import { View, TextInput, StyleSheet, Alert } from "react-native";
+import { View, TextInput, StyleSheet, Alert, Text } from "react-native";
 
 export default function Index() {
   const [enteredNumber, setEnteredNumber] = useState("");
@@ -23,7 +26,7 @@ export default function Index() {
       return;
     }
     router.push({
-      pathname: "/gameScreen/[userNumber]",
+      pathname: "/gameScreen",
       params: { userNumber: chosenNumber },
     });
   };
@@ -34,7 +37,11 @@ export default function Index() {
 
   return (
     <BackgroundView>
-      <View style={styles.inputContainer}>
+      <View style={styles.title}>
+        <Title>Guess My Number!</Title>
+      </View>
+      <Card>
+        <InstructionText>Enter a Number</InstructionText>
         <TextInput
           style={styles.textInput}
           maxLength={2}
@@ -49,24 +56,15 @@ export default function Index() {
           <PrimaryButton onPress={resetHandler}>Reset</PrimaryButton>
           <PrimaryButton onPress={confirmHandler}>Confirm</PrimaryButton>
         </View>
-      </View>
+      </Card>
     </BackgroundView>
   );
 }
 
 const styles = StyleSheet.create({
-  inputContainer: {
-    padding: 16,
-    backgroundColor: Colors.primary800,
-    marginHorizontal: 16,
-    marginTop: 32,
-    borderRadius: 8,
-    elevation: 4, //android only shadow
-    shadowColor: "black", //ios only shadow
-    shadowOffset: { width: 0, height: 2 }, //ios only shadow
-    shadowRadius: 6, //ios only shadow
-    shadowOpacity: 0.25, //ios only shadow
+  title: {
     alignItems: "center",
+    marginTop: 32,
   },
   textInput: {
     height: 40,
@@ -82,11 +80,5 @@ const styles = StyleSheet.create({
   buttonsContainer: {
     flexDirection: "row",
     width: "80%",
-  },
-  rootScreen: {
-    flex: 1,
-  },
-  backgroundImage: {
-    opacity: 0.1,
   },
 });

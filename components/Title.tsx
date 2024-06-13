@@ -1,12 +1,12 @@
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, TextProps } from "react-native";
 
-export default function Title({ children }: { children: string }) {
+export default function Title({ children }: TextProps) {
   return <Text style={styles.title}>{children}</Text>;
 }
 
 const styles = StyleSheet.create({
   title: {
-    fontWeight: "bold",
+    fontFamily: "space-mono",
     fontSize: 24,
     textAlign: "center",
     color: "white",
@@ -14,5 +14,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 16,
     borderRadius: 8,
+    marginHorizontal: 16,
   },
 });
