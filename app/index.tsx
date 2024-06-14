@@ -6,10 +6,20 @@ import Title from "@/components/Title";
 import { Colors } from "@/constants/Colors";
 import { router } from "expo-router";
 import { useState } from "react";
-import { View, TextInput, StyleSheet, Alert, Text } from "react-native";
+import {
+  View,
+  TextInput,
+  StyleSheet,
+  Alert,
+  useWindowDimensions,
+  KeyboardAvoidingView,
+  ScrollView,
+} from "react-native";
 
 export default function Index() {
   const [enteredNumber, setEnteredNumber] = useState("");
+
+  const { height } = useWindowDimensions();
 
   const numberInputHandler = (inputText: string) => {
     setEnteredNumber(inputText);
@@ -35,36 +45,44 @@ export default function Index() {
     setEnteredNumber("");
   };
 
+  const marginTopDistance = height < 400 ? 20 : 100;
+
   return (
     <BackgroundView>
-      <View style={styles.title}>
-        <Title>Guess My Number!</Title>
-      </View>
-      <Card>
-        <InstructionText>Enter a Number</InstructionText>
-        <TextInput
-          style={styles.textInput}
-          maxLength={2}
-          cursorColor={Colors.accent500}
-          keyboardType="number-pad"
-          autoCapitalize="none"
-          autoCorrect={false}
-          value={enteredNumber}
-          onChangeText={numberInputHandler}
-        />
-        <View style={styles.buttonsContainer}>
-          <PrimaryButton onPress={resetHandler}>Reset</PrimaryButton>
-          <PrimaryButton onPress={confirmHandler}>Confirm</PrimaryButton>
-        </View>
-      </Card>
+      <ScrollView style={{ flex: 1 }}>
+        <KeyboardAvoidingView style={{ flex: 1 }} behavior="position">
+          <View style={[styles.title, { marginTop: marginTopDistance }]}>
+            <Title>Guess My Number!</Title>
+          </View>
+          <Card>
+            <InstructionText>Enter a Number</InstructionText>
+            <TextInput
+              style={styles.textInput}
+              maxLength={2}
+              cursorColor={Colors.accent500}
+              keyboardType="number-pad"
+              autoCapitalize="none"
+              autoCorrect={false}
+              value={enteredNumber}
+              onChangeText={numberInputHandler}
+            />
+            <View style={styles.buttonsContainer}>
+              <PrimaryButton onPress={resetHandler}>Reset</PrimaryButton>
+              <PrimaryButton onPress={confirmHandler}>Confirm</PrimaryButton>
+            </View>
+          </Card>
+        </KeyboardAvoidingView>
+      </ScrollView>
     </BackgroundView>
   );
 }
 
+// const deviceHeight = Dimensions.get("window").height;
+
 const styles = StyleSheet.create({
   title: {
     alignItems: "center",
-    marginTop: 32,
+    // marginTop: deviceHeight < 400 ? 20 : 40,
   },
   textInput: {
     height: 40,

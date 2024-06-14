@@ -1,16 +1,18 @@
 import { Colors } from "@/constants/Colors";
-import { StyleSheet, View, ViewProps } from "react-native";
+import { Dimensions, StyleSheet, View, ViewProps } from "react-native";
 
 export default function Card({ children }: ViewProps) {
   return <View style={styles.card}>{children}</View>;
 }
+
+const devicedWidth = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({
   card: {
     padding: 16,
     backgroundColor: Colors.primary800,
     marginHorizontal: 16,
-    marginTop: 32,
+    marginTop: devicedWidth < 380 ? 12 : 36,
     borderRadius: 8,
     elevation: 4, //android only shadow
     shadowColor: "black", //ios only shadow

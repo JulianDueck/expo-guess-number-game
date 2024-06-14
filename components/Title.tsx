@@ -15,5 +15,6 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 8,
     marginHorizontal: 16,
+    maxWidth: "80%",
   },
 });
